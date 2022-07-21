@@ -11,8 +11,9 @@ class Fooder extends StatelessWidget {
   const Fooder({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final theme = FooderTheme.light();
+    final theme = FooderTheme.dark();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme,
       title: 'Fooderlich',
       home: const Home(),

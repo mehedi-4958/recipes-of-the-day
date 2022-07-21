@@ -5,7 +5,7 @@
       "cardType": "card1",
       "title": "The Art of Dough",
       "subtitle": "Editor's Choice",
-      "backgroundImage": "assets/magazine_pics/card_bread.jpg",
+      "backgroundImage": "assets/magazine_pics/card_bread.jpeg",
       "backgroundImageSource": "https://www.foodiesfeed.com/free-food-photo/baker-with-wheat-flour/",
       "message": "Learn to make the perfect bread.",
       "authorName": "Ray Wenderlich",
