@@ -16,11 +16,11 @@ class AuthorCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AuthorCardState createState() => _AuthorCardState();
+  AuthorCardState createState() => AuthorCardState();
 }
 
-class _AuthorCardState extends State<AuthorCard> {
-  bool _isFavorited = false;
+class AuthorCardState extends State<AuthorCard> {
+  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +52,12 @@ class _AuthorCardState extends State<AuthorCard> {
             ],
           ),
           IconButton(
-            icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
+            icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
             iconSize: 30,
             color: Colors.red[400],
             onPressed: () {
               setState(() {
-                _isFavorited = !_isFavorited;
+                _isFavorite = !_isFavorite;
               });
             },
           ),

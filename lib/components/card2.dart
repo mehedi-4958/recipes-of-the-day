@@ -2,30 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../fooder_theme.dart';
 import '../models/models.dart';
+import 'author_card.dart';
 
-class Card3 extends StatelessWidget {
+class Card2 extends StatelessWidget {
   final ExploreRecipe recipe;
 
-  const Card3({
+  const Card2({
     Key? key,
     required this.recipe,
   }) : super(key: key);
-
-  List<Widget> createTagChips() {
-    final chips = <Widget>[];
-    recipe.tags.take(6).forEach((element) {
-      final chip = Chip(
-        label: Text(
-          element,
-          style: FooderTheme.darkTextTheme.bodyText1,
-        ),
-        backgroundColor: Colors.black.withOpacity(0.7),
-      );
-      chips.add(chip);
-    });
-
-    return chips;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +25,39 @@ class Card3 extends StatelessWidget {
             image: AssetImage(recipe.backgroundImage),
             fit: BoxFit.cover,
           ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         ),
-        child: Stack(
+        child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              ),
+            AuthorCard(
+              authorName: recipe.authorName,
+              title: recipe.role,
+              imageProvider: AssetImage(recipe.profileImage),
             ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              child: Stack(
                 children: [
-                  const Icon(
-                    Icons.book,
-                    color: Colors.white,
-                    size: 40,
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    child: Text(
+                      recipe.title,
+                      style: FooderTheme.lightTextTheme.headline1,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(recipe.title,
-                      style: FooderTheme.darkTextTheme.headline2),
-                  const SizedBox(height: 30),
+                  Positioned(
+                    bottom: 70,
+                    left: 16,
+                    child: RotatedBox(
+                      quarterTurns: 3,
+                      child: Text(
+                        recipe.subtitle,
+                        style: FooderTheme.lightTextTheme.headline1,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            Center(
-              child: Wrap(
-                  alignment: WrapAlignment.start,
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: createTagChips()),
             ),
           ],
         ),

@@ -15,37 +15,6 @@ class Card1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: Stack(
-          children: [
-            Text(
-              recipe.subtitle,
-              style: FooderTheme.darkTextTheme.bodyText1,
-            ),
-            Positioned(
-              child: Text(
-                recipe.title,
-                style: FooderTheme.darkTextTheme.headline2,
-              ),
-              top: 20,
-            ),
-            Positioned(
-              child: Text(
-                recipe.message,
-                style: FooderTheme.darkTextTheme.bodyText1,
-              ),
-              bottom: 30,
-              right: 0,
-            ),
-            Positioned(
-              child: Text(
-                recipe.authorName,
-                style: FooderTheme.darkTextTheme.bodyText1,
-              ),
-              bottom: 10,
-              right: 0,
-            )
-          ],
-        ),
         padding: const EdgeInsets.all(16),
         constraints: const BoxConstraints.expand(
           width: 350,
@@ -57,6 +26,37 @@ class Card1 extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        ),
+        child: Stack(
+          children: [
+            Text(
+              recipe.subtitle,
+              style: FooderTheme.darkTextTheme.bodyText1,
+            ),
+            Positioned(
+              top: 20,
+              child: Text(
+                recipe.title,
+                style: FooderTheme.darkTextTheme.headline2,
+              ),
+            ),
+            Positioned(
+              bottom: 30,
+              right: 0,
+              child: Text(
+                recipe.message,
+                style: FooderTheme.darkTextTheme.bodyText1,
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 0,
+              child: Text(
+                recipe.authorName,
+                style: FooderTheme.darkTextTheme.bodyText1,
+              ),
+            )
+          ],
         ),
       ),
     );
