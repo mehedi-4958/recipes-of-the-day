@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_of_the_day/models/models.dart';
 
 import 'fooder_theme.dart';
 import 'home.dart';
@@ -16,7 +18,14 @@ class Fooder extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme,
       title: 'Fooder',
-      home: const Home(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => TabManager()),
+          ChangeNotifierProvider(create: (context) => GroceryManager()),
+          // TODO 10: Add GroceryManager Provider
+        ],
+        child: const Home(),
+      ),
     );
   }
 }
