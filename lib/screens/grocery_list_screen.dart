@@ -35,6 +35,7 @@ class GroceryListScreen extends StatelessWidget {
               groceryManager.deleteItem(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
+                  backgroundColor: Colors.red,
                   content: Text(
                     '${item.name} removed from the list',
                   ),
