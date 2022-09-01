@@ -6,7 +6,11 @@ import 'package:recipes_of_the_day/screens/grocery_screen.dart';
 import 'package:recipes_of_the_day/screens/recipes_screen.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.currentTab}) : super(key: key);
+
+  final int currentTab;
+
+  // TODO: Home MaterialPage Helper
 
   @override
   HomeState createState() => HomeState();
@@ -21,6 +25,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Wrap Consumer for AppStatemanger
     return Consumer<TabManager>(builder: (context, tabManager, child) {
       return Scaffold(
         appBar: AppBar(
@@ -28,6 +33,9 @@ class HomeState extends State<Home> {
             'Fooder',
             style: Theme.of(context).textTheme.headline6,
           ),
+          actions: [
+            profileButton(),
+          ],
         ),
         body: IndexedStack(
           index: tabManager.selectedTab,
@@ -57,5 +65,22 @@ class HomeState extends State<Home> {
         ),
       );
     });
+  }
+
+  Widget profileButton() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: GestureDetector(
+        child: const CircleAvatar(
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage(
+            'assets/profile_pics/person_stef.jpeg',
+          ),
+        ),
+        onTap: () {
+          // TODO: home -> profile
+        },
+      ),
+    );
   }
 }
