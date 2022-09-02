@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_of_the_day/models/models.dart';
+import 'package:recipes_of_the_day/navigation/app_router.dart';
 
 import 'fooder_theme.dart';
-import 'screens/screens.dart';
 
 void main() {
   runApp(
@@ -21,10 +21,18 @@ class Fooder extends StatefulWidget {
 class _FooderState extends State<Fooder> {
   final _groceryManager = GroceryManager();
   final _profileManager = ProfileManager();
-  // TODO: Create AppStateManager
-  // TODO: Define AppRouter
+  final _appStateManager = AppStateManager();
+  late AppRouter _appRouter;
 
-  // TODO: Initialize AppRouter
+  @override
+  void initState() {
+    _appRouter = AppRouter(
+      appStateManager: _appStateManager,
+      groceryManager: _groceryManager,
+      profileManager: _profileManager,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +43,9 @@ class _FooderState extends State<Fooder> {
         ),
         ChangeNotifierProvider(
           create: (context) => _profileManager,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => _appStateManager,
         ),
       ],
       child: Consumer<ProfileManager>(
@@ -49,8 +60,10 @@ class _FooderState extends State<Fooder> {
           return MaterialApp(
             theme: theme,
             title: 'Fooder',
-            // TODO: Replace with Router widget
-            home: const SplashScreen(),
+            home: Router(
+              routerDelegate: _appRouter,
+              backButtonDispatcher: RootBackButtonDispatcher(),
+            ),
           );
         },
       ),

@@ -9,7 +9,13 @@ class ProfileScreen extends StatefulWidget {
 
   final User user;
 
-  // TODO: ProfileScreen MaterialPage Helper
+  static MaterialPage page(User user) {
+    return MaterialPage(
+      child: ProfileScreen(user: user),
+      name: FooderPages.profilePath,
+      key: ValueKey(FooderPages.profilePath),
+    );
+  }
 
   @override
   State<ProfileScreen> createState() => _ProfileScrrenState();
@@ -22,7 +28,8 @@ class _ProfileScrrenState extends State<ProfileScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // TODO: Close Profile Screen
+            Provider.of<ProfileManager>(context, listen: false)
+                .tapOnProfile(false);
           },
           icon: const Icon(Icons.close),
         ),
@@ -49,13 +56,16 @@ class _ProfileScrrenState extends State<ProfileScreen> {
         ListTile(
           title: const Text('View raywenderlich.com'),
           onTap: () {
-            // TODO: Open raywenderlich.com webview
+            Provider.of<ProfileManager>(context, listen: false)
+                .tapOnRaywenderlich(true);
           },
         ),
         ListTile(
           title: const Text('Log out'),
           onTap: () {
-            // TODO: Logout user
+            Provider.of<ProfileManager>(context, listen: false)
+                .tapOnProfile(false);
+            Provider.of<AppStateManager>(context, listen: false).logout();
           },
         ),
       ],

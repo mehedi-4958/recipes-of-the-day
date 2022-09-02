@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_of_the_day/models/tab_manager.dart';
+import 'package:recipes_of_the_day/models/models.dart';
 import 'package:recipes_of_the_day/screens/explore_screen.dart';
 import 'package:recipes_of_the_day/screens/grocery_screen.dart';
 import 'package:recipes_of_the_day/screens/recipes_screen.dart';
@@ -10,7 +10,13 @@ class Home extends StatefulWidget {
 
   final int currentTab;
 
-  // TODO: Home MaterialPage Helper
+  static MaterialPage page(int currentTab) {
+    return MaterialPage(
+      child: Home(currentTab: currentTab),
+      name: FooderPages.home,
+      key: ValueKey(FooderPages.home),
+    );
+  }
 
   @override
   HomeState createState() => HomeState();
@@ -25,8 +31,8 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Wrap Consumer for AppStatemanger
-    return Consumer<TabManager>(builder: (context, tabManager, child) {
+    return Consumer<AppStateManager>(
+        builder: (context, appStateManager, child) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -38,15 +44,15 @@ class HomeState extends State<Home> {
           ],
         ),
         body: IndexedStack(
-          index: tabManager.selectedTab,
+          index: widget.currentTab,
           children: pages,
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor:
               Theme.of(context).textSelectionTheme.selectionColor,
-          currentIndex: tabManager.selectedTab,
+          currentIndex: widget.currentTab,
           onTap: (index) {
-            tabManager.goToTab(index);
+            Provider.of<AppStateManager>(context, listen: false).goToTab(index);
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -78,7 +84,8 @@ class HomeState extends State<Home> {
           ),
         ),
         onTap: () {
-          // TODO: home -> profile
+          Provider.of<ProfileManager>(context, listen: false)
+              .tapOnProfile(true);
         },
       ),
     );

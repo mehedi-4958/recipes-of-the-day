@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_of_the_day/models/models.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
+
+  static MaterialPage page() {
+    return MaterialPage(
+      child: const OnboardingScreen(),
+      name: FooderPages.onboardingPath,
+      key: ValueKey(FooderPages.onboardingPath),
+    );
+  }
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -50,7 +60,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           '''Check out weekly recommended recipes and wht your friends are cooking!''',
         ),
         onboardPageView(
-          const AssetImage('assets/fooder_assets/sheet/png'),
+          const AssetImage('assets/fooder_assets/sheet.png'),
           'Cook with step by step instructions!',
         ),
         onboardPageView(
@@ -67,7 +77,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: [
         MaterialButton(
           onPressed: () {
-            // TODO: Onboarding -> Navigate to home
+            Provider.of<AppStateManager>(context, listen: false)
+                .completeOnboarding();
           },
           child: const Text('Skip'),
         )

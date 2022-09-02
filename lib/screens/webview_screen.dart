@@ -1,12 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:recipes_of_the_day/models/models.dart';
+import 'package:recipes_of_the_day/screens/screens.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   const WebViewScreen({Key? key}) : super(key: key);
 
-  // TODO: WebViewScreen MaterialPage Helper
+  static MaterialPage page() {
+    return MaterialPage(
+      child: const WebViewScreen(),
+      name: FooderPages.raywenderlich,
+      key: ValueKey(
+        FooderPages.raywenderlich,
+      ),
+    );
+  }
 
   @override
   State<WebViewScreen> createState() => _WebViewScreenState();

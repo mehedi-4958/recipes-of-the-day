@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_of_the_day/models/models.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
+  static MaterialPage page() {
+    return MaterialPage(
+      child: const SplashScreen(),
+      name: FooderPages.splashPath,
+      key: ValueKey(FooderPages.splashPath),
+    );
+  }
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -10,7 +20,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
-    // TODO: Initialize App
+    Provider.of<AppStateManager>(context, listen: false).initializeApp();
     super.didChangeDependencies();
   }
 
