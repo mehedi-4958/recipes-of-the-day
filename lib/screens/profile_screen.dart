@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_of_the_day/components/components.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/models.dart';
 
@@ -55,9 +57,15 @@ class _ProfileScrrenState extends State<ProfileScreen> {
         buildDarkModeRow(),
         ListTile(
           title: const Text('View raywenderlich.com'),
-          onTap: () {
-            Provider.of<ProfileManager>(context, listen: false)
-                .tapOnRaywenderlich(true);
+          onTap: () async {
+            if (kIsWeb) {
+              await launchUrl(
+                Uri.parse('https://www.raywenderlich.com/'),
+              );
+            } else {
+              Provider.of<ProfileManager>(context, listen: false)
+                  .tapOnRaywenderlich(true);
+            }
           },
         ),
         ListTile(
