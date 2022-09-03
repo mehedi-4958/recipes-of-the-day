@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_of_the_day/models/models.dart';
+import 'package:recipes_of_the_day/navigation/app_route_parser.dart';
 import 'package:recipes_of_the_day/navigation/app_router.dart';
 
 import 'fooder_theme.dart';
@@ -23,6 +24,7 @@ class _FooderState extends State<Fooder> {
   final _profileManager = ProfileManager();
   final _appStateManager = AppStateManager();
   late AppRouter _appRouter;
+  final routeParser = AppRouteParser();
 
   @override
   void initState() {
@@ -56,14 +58,13 @@ class _FooderState extends State<Fooder> {
           } else {
             theme = FooderTheme.light();
           }
-
-          return MaterialApp(
+          // TODO: Replace with Material.router
+          return MaterialApp.router(
             theme: theme,
             title: 'Fooder',
-            home: Router(
-              routerDelegate: _appRouter,
-              backButtonDispatcher: RootBackButtonDispatcher(),
-            ),
+            backButtonDispatcher: RootBackButtonDispatcher(),
+            routeInformationParser: routeParser,
+            routerDelegate: _appRouter,
           );
         },
       ),
