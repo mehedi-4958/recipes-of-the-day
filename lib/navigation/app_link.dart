@@ -1,12 +1,12 @@
 class AppLink {
-  static const String kHomePath = '/home';
-  static const String kOnboardingPath = '/onboarding';
-  static const String kLoginpath = '/login';
-  static const String kProfilePath = '/profile';
-  static const String kItemPath = '/item';
+  static const String homePath = '/home';
+  static const String onboardingPath = '/onboarding';
+  static const String loginpath = '/login';
+  static const String profilePath = '/profile';
+  static const String itemPath = '/item';
 
-  static const String kTabParam = 'tab';
-  static const String kIdParam = 'id';
+  static const String tabParam = 'tab';
+  static const String idParam = 'id';
 
   String? location;
   int? currentTab;
@@ -22,8 +22,8 @@ class AppLink {
     location = Uri.decodeFull(location ?? '');
     final uri = Uri.parse(location);
     final params = uri.queryParameters;
-    final currentTab = int.tryParse(params[AppLink.kIdParam] ?? '');
-    final itemId = params[AppLink.kIdParam];
+    final currentTab = int.tryParse(params[AppLink.idParam] ?? '');
+    final itemId = params[AppLink.idParam];
     final link = AppLink(
       location: uri.path,
       currentTab: currentTab,
@@ -40,23 +40,23 @@ class AppLink {
         value == null ? '' : '$key=$value&';
 
     switch (location) {
-      case kLoginpath:
-        return kLoginpath;
-      case kOnboardingPath:
-        return kOnboardingPath;
-      case kProfilePath:
-        return kProfilePath;
-      case kItemPath:
-        var loc = '$kItemPath?';
+      case loginpath:
+        return loginpath;
+      case onboardingPath:
+        return onboardingPath;
+      case profilePath:
+        return profilePath;
+      case itemPath:
+        var loc = '$itemPath?';
         loc += addKeyValPair(
-          key: kIdParam,
+          key: idParam,
           value: itemId,
         );
         return Uri.encodeFull(loc);
       default:
-        var loc = '$kHomePath?';
+        var loc = '$homePath?';
         loc += addKeyValPair(
-          key: kTabParam,
+          key: tabParam,
           value: currentTab.toString(),
         );
         return Uri.encodeFull(loc);

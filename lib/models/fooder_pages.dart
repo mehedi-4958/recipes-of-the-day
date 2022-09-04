@@ -1,7 +1,7 @@
 class FooderPages {
   static String splashPath = '/splash';
   static String loginPath = '/login';
-  static String onboardingPath = '/onboard';
+  static String onboardingPath = '/onboarding';
   static String home = '/';
   static String groceryItemDetails = '/item';
   static String profilePath = '/profile';

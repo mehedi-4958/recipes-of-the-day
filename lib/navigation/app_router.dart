@@ -7,6 +7,7 @@ class AppRouter extends RouterDelegate<AppLink>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   @override
   final GlobalKey<NavigatorState> navigatorKey;
+
   final AppStateManager appStateManager;
   final GroceryManager groceryManager;
   final ProfileManager profileManager;
@@ -40,7 +41,7 @@ class AppRouter extends RouterDelegate<AppLink>
         ] else if (!appStateManager.isLoggedIn) ...[
           LoginScreen.page(),
         ] else if (!appStateManager.isOnboardingComplete) ...[
-          LoginScreen.page(),
+          OnboardingScreen.page(),
         ] else ...[
           Home.page(appStateManager.getSelectedTab),
           if (groceryManager.isCreatingNewItem)
@@ -90,35 +91,35 @@ class AppRouter extends RouterDelegate<AppLink>
     return true;
   }
 
+  @override
+  AppLink get currentConfiguration => getCurrentPath();
+
   AppLink getCurrentPath() {
     if (!appStateManager.isLoggedIn) {
-      return AppLink(location: AppLink.kLoginpath);
+      return AppLink(location: AppLink.loginpath);
     } else if (!appStateManager.isOnboardingComplete) {
-      return AppLink(location: AppLink.kOnboardingPath);
+      return AppLink(location: AppLink.onboardingPath);
     } else if (profileManager.didSelectUser) {
-      return AppLink(location: AppLink.kProfilePath);
+      return AppLink(location: AppLink.profilePath);
     } else if (groceryManager.isCreatingNewItem) {
-      return AppLink(location: AppLink.kItemPath);
+      return AppLink(location: AppLink.itemPath);
     } else if (groceryManager.selectedGroceryItem != null) {
       final id = groceryManager.selectedGroceryItem?.id;
-      return AppLink(location: AppLink.kItemPath, itemId: id);
+      return AppLink(location: AppLink.itemPath, itemId: id);
     } else {
       return AppLink(
-          location: AppLink.kHomePath,
+          location: AppLink.homePath,
           currentTab: appStateManager.getSelectedTab);
     }
   }
 
   @override
-  AppLink get currentConfiguration => getCurrentPath();
-
-  @override
   Future<void> setNewRoutePath(AppLink configuration) async {
     switch (configuration.location) {
-      case AppLink.kProfilePath:
+      case AppLink.profilePath:
         profileManager.tapOnProfile(true);
         break;
-      case AppLink.kItemPath:
+      case AppLink.itemPath:
         final itemId = configuration.itemId;
         if (itemId != null) {
           groceryManager.setSelectedGroceryItem(itemId);
@@ -127,7 +128,7 @@ class AppRouter extends RouterDelegate<AppLink>
         }
         profileManager.tapOnProfile(false);
         break;
-      case AppLink.kHomePath:
+      case AppLink.homePath:
         appStateManager.goToTab(configuration.currentTab ?? 0);
         profileManager.tapOnProfile(false);
         groceryManager.groceryItemTapped(-1);
